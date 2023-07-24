@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}{% endblock %}
+{% block content %}
+{% include 'message.html' %}
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-12">
+        <ol class="breadcrumb bg-transparent float-end pt-3 mb-0 px-0">
+            <li class="breadcrumb-item text-secondary"><a href="/" class="text-decoration-none">Home</a></li>
+            <li class="breadcrumb-item active">Questions {% if '/post/create/' in request.path %}Create {% else %}Update{% endif %}</li>
+        </ol>
+      </div>
+      <div class="col-12">
+        <h2 class="d-inline-block">Questions {% if '/post/create/' in request.path %}Create {% else %}Update{% endif %}</h2>
+        <p>{% if '/post/create/' in request.path %}Create {% else %}Update{% endif %} the Questions post for below.</p>
+      </div>
+      <div class="col-12 col-md-8 mb-5">
+        <form method="post" enctype="multipart/form-data" class="row g-3 needs-validation border p-4 rounded" novalidate="">
+           {% csrf_token %}
+           
+           {% include 'auth_app/forms/auth_widget.html' %}
+
+            <div calss="col-12">
+                <a href="/" class="btn btn-danger">Back</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

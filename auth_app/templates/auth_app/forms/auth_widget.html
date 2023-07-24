@@ -1,0 +1,27 @@
+{% load static %}
+{% for field in form %}
+	{% if not field.is_hidden %}	
+        <div class="{% if not form.half or field.html_name not in form.half %}col-md-12{% else %}col-md-6{% endif %}">
+            <label for="{{field.id_for_label}}">{{field.label|safe}}&nbsp;{% if field.field.required %}<span class="required">*<span>{% endif %}</label>
+            {{field}}
+            {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+            {% endif %}
+            {% if field.errors %}
+                {{ field.errors }}
+            {% endif %}
+            <span id="{{field.id_for_label}}Error"></span>    
+        </div>
+        {% if field.field.widget.input_type == 'file'  %}
+            {% if field.value %}
+                <div class="col-12 border p-2">
+                    <h6>Image Preview</h6>
+                    <img src="/media/{{field.value}}" class="rounded float-start p-2 border border-2" 
+                    width="150" height="150" alt="...">
+                </div>
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {{field}}
+    {% endif %}
+{% endfor form %}
